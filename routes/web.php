@@ -20,3 +20,8 @@ Route::get('/', function () {
 Route::get('/ola', function () {
     echo "Olá mundo!";
 });
+
+Route::get('/produtos/controle-produtos','ProdutosController@list');
+Route::get('/produtos/criar-produto','ProdutosController@create');
+Route::post('/produtos/criar-produto','ProdutosController@store');
+

@@ -18,6 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/teste', function () {
-    return "Teste executado!";
-});
+Route::get('/ola', 'API\ProdutosController@teste');
+
+//produtos
+Route::post('/create-produtos','API\ProdutosController@create');
+Route::delete('/delete-produtos','API\ProdutosController@delete');
+Route::get('/listar-produtos','API\ProdutosController@listProdutos');
+
+//categorias
+Route::post('/create-categorias','API\CategoriasController@create');
+Route::delete('/delete-categorias','API\CategoriasController@delete');
+Route::get('/listar-categorias','API\CategoriasController@listCategorias');
