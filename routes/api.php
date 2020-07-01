@@ -29,3 +29,12 @@ Route::get('/listar-produtos','API\ProdutosController@listProdutos');
 Route::post('/create-categorias','API\CategoriasController@create');
 Route::delete('/delete-categorias','API\CategoriasController@delete');
 Route::get('/listar-categorias','API\CategoriasController@listCategorias');
+
+//kits
+Route::post('/create-kits','API\KitsController@create');
+Route::post('/add-produto-kit','API\KitsController@addProduto');
+Route::delete('/remove-produto-kit','API\KitsController@removeProduto');
+Route::post('/list-all-kits','API\KitsController@listAllKits');
+Route::post('/list-one-kit','API\KitsController@listOneKit');
+
+

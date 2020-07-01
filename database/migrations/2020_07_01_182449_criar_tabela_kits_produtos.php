@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CriarRelacaoProdutoCategoria extends Migration
+class CriarTabelaKitsProdutos extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,13 @@ class CriarRelacaoProdutoCategoria extends Migration
      */
     public function up()
     {
-        Schema::table('produtos', function (Blueprint $table) {
-            $table->foreign('categoria_id')->references('id')->on('categorias');
+        Schema::create('kits_produtos', function (Blueprint $table) {
+            
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('kit_id');
+            $table->unsignedBigInteger('produto_id');
+            $table->timestamps();
+
         });
     }
 
@@ -25,8 +30,6 @@ class CriarRelacaoProdutoCategoria extends Migration
      */
     public function down()
     {
-        Schema::table('produtos', function (Blueprint $table) {
-            $table->dropForeign(['categoria_id']);
-        });
+        Schema::dropIfExists('kits_produtos');
     }
 }
