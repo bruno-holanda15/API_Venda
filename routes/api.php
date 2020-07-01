@@ -34,6 +34,7 @@ Route::get('/listar-categorias','API\CategoriasController@listCategorias');
 Route::post('/create-kits','API\KitsController@create');
 Route::post('/add-produto-kit','API\KitsController@addProduto');
 Route::delete('/remove-produto-kit','API\KitsController@removeProduto');
+Route::delete('/remove-kit','API\KitsController@removeKit');
 Route::post('/list-all-kits','API\KitsController@listAllKits');
 Route::post('/list-one-kit','API\KitsController@listOneKit');
 

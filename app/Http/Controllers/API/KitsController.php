@@ -92,11 +92,35 @@ class KitsController extends Controller
         
     }
 
+    public function removeKit(Request $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'kit_id'=>'required|integer'
+        ]);    
+        if($validator->fails()){
+            return response()->json(['Falta informações para exclusão.'],400);
+
+        } 
+
+        $kit = DB::table('kits_produtos')
+        ->where(
+            'kit_id','=',$request->kit_id
+           
+        )->delete();
+
+        if(!$kit){
+            return response()->json(['Kit inexistente.'],400);
+
+        }
+        return response()->json(['Kit deletado.'],200);
+        
+    }
+
     public function listAllKits()
     {
         $lista = DB::table('kits_produtos')
             ->paginate(2);
-            
+
         return response()->json($lista,200);
 
     }
@@ -117,16 +141,13 @@ class KitsController extends Controller
                 'kit_id','=',$request->kit_id
             )->get();
 
-        // $lista = DB::table('kits_produtos')
-        //     ->paginate(2);
-
+   
         if(count($lista) === 0 ){
             return response()->json(['Erro, não possui Kit com esse id.'],400);
 
         }
         
         return response()->json(["Lista de kit id $request->kit_id.",$lista],200);
-        // return response()->json($lista,200);
-
+        
     }
 }
