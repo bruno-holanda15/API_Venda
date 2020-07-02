@@ -25,3 +25,7 @@ Route::get('/produtos/controle-produtos','ProdutosController@list');
 Route::get('/produtos/criar-produto','ProdutosController@create');
 Route::post('/produtos/criar-produto','ProdutosController@store');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

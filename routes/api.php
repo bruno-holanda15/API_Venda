@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\AuthKey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,22 +21,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/ola', 'API\ProdutosController@teste');
 
-//produtos
-Route::post('/create-produtos','API\ProdutosController@create');
-Route::delete('/delete-produtos','API\ProdutosController@delete');
-Route::get('/listar-produtos','API\ProdutosController@listProdutos');
+Route::middleware([AuthKey::class])->group( function() {
 
-//categorias
-Route::post('/create-categorias','API\CategoriasController@create');
-Route::delete('/delete-categorias','API\CategoriasController@delete');
-Route::get('/listar-categorias','API\CategoriasController@listCategorias');
+    //produtos
+    Route::post('/create-produtos','API\ProdutosController@create');
+    Route::delete('/delete-produtos','API\ProdutosController@delete');
+    Route::get('/listar-produtos','API\ProdutosController@listProdutos');
 
-//kits
-Route::post('/create-kits','API\KitsController@create');
-Route::post('/add-produto-kit','API\KitsController@addProduto');
-Route::delete('/remove-produto-kit','API\KitsController@removeProduto');
-Route::delete('/remove-kit','API\KitsController@removeKit');
-Route::post('/list-all-kits','API\KitsController@listAllKits');
-Route::post('/list-one-kit','API\KitsController@listOneKit');
+    //categorias
+    Route::post('/create-categorias','API\CategoriasController@create');
+    Route::delete('/delete-categorias','API\CategoriasController@delete');
+    Route::get('/listar-categorias','API\CategoriasController@listCategorias');
 
+    //kits
+    Route::post('/create-kits','API\KitsController@create');
+    Route::post('/add-produto-kit','API\KitsController@addProduto');
+    Route::delete('/remove-produto-kit','API\KitsController@removeProduto');
+    Route::delete('/remove-kit','API\KitsController@removeKit');
+    Route::post('/list-all-kits','API\KitsController@listAllKits');
+    Route::post('/list-one-kit','API\KitsController@listOneKit');
+
+});
 
