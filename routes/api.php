@@ -27,6 +27,7 @@ Route::middleware([AuthKey::class])->group( function() {
     Route::post('/create-produtos','API\ProdutosController@create');
     Route::delete('/delete-produtos','API\ProdutosController@delete');
     Route::get('/listar-produtos','API\ProdutosController@listProdutos');
+    Route::post('/add-produto-image','API\ProdutosController@addImage');
 
     //categorias
     Route::post('/create-categorias','API\CategoriasController@create');
@@ -40,6 +41,8 @@ Route::middleware([AuthKey::class])->group( function() {
     Route::delete('/remove-kit','API\KitsController@removeKit');
     Route::post('/list-all-kits','API\KitsController@listAllKits');
     Route::post('/list-one-kit','API\KitsController@listOneKit');
+
+
 
 });
 

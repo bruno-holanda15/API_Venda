@@ -5,11 +5,15 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Produto;
 use App\Categoria;
+use App\Imagem;
+use App\Traits\UploadTrait;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Validator;
 
 class ProdutosController extends Controller
 {
+    use UploadTrait;
+
     public function teste(HttpRequest $request)
     {
         $request->all();
@@ -70,5 +74,34 @@ class ProdutosController extends Controller
         $produtos = Produto::all();
 
         return response()->json([$produtos],200);
+    }
+
+    public function addImage(HttpRequest $request)
+    {
+        $validator = Validator::make($request->all(),[
+            'image' => 'required',
+            'produto_id' => 'required|integer',
+            'nome' =>'required'
+        ]);
+
+        if ($validator->fails()) {
+            return $validator->errors(400);
+        }
+        $imagem = new Imagem();
+        $image = $request->file('image');
+        $nome = $request->nome;
+        // Define folder path
+        $folder = '/uploads/images/';
+        // Make a file path where image will be stored [ folder path + file nome + file extension]
+        $filePath = $folder . $nome. '.' . $image->getClientOriginalExtension();
+        // Upload image
+        $this->uploadOne($image, $folder, 'public', $nome);
+        // Set user profile image path in database to filePath
+        $imagem->caminho = $filePath;
+        $imagem->produto_id = $request->produto_id;
+        $imagem->save();
+
+        return response()->json(['Imagem inserida com sucesso'],200);
+
     }
 }
