@@ -33,6 +33,8 @@ Route::middleware([AuthKey::class])->group( function() {
     Route::post('/create-categorias','API\CategoriasController@create');
     Route::delete('/delete-categorias','API\CategoriasController@delete');
     Route::get('/listar-categorias','API\CategoriasController@listCategorias');
+    Route::post('/add-mercadolivre-categorias','API\CategoriasController@addCategoria');
+
 
     //kits
     Route::post('/create-kits','API\KitsController@create');
