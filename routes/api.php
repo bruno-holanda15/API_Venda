@@ -35,7 +35,6 @@ Route::middleware([AuthKey::class])->group( function() {
     Route::get('/listar-categorias','API\CategoriasController@listCategorias');
     Route::post('/add-mercadolivre-categorias','API\CategoriasController@addCategoria');
 
-
     //kits
     Route::post('/create-kits','API\KitsController@create');
     Route::post('/add-produto-kit','API\KitsController@addProduto');
@@ -43,8 +42,6 @@ Route::middleware([AuthKey::class])->group( function() {
     Route::delete('/remove-kit','API\KitsController@removeKit');
     Route::post('/list-all-kits','API\KitsController@listAllKits');
     Route::post('/list-one-kit','API\KitsController@listOneKit');
-
-
 
 });
 

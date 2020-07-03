@@ -39,6 +39,10 @@ class CategoriasController extends Controller
             'categoria_filho'=>'required'
 
         ]);
+
+        if($validator->fails()) {
+            return response()->json(['Informar código de categoria e index de categoria filha.'],400);
+        }
         // https://api.mercadolibre.com/categories/MLA1071
         $client = new Client(['base_uri' => 'https://api.mercadolibre.com/categories/']);
         $response = $client->request(
