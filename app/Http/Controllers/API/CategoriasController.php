@@ -36,13 +36,14 @@ class CategoriasController extends Controller
     {
         $validator = Validator::make( $request->all(), [
             'codigo' => 'required',
-            'categoria_filho'=>'required'
+            'categoria_filho'=>'required|integer'
 
         ]);
 
-        if($validator->fails()) {
-            return response()->json(['Informar código de categoria e index de categoria filha.'],400);
+        if($validator->fails() || $request->categoria_filho < 0) {
+            return response()->json(['Informar código de categoria e index de categoria filha válido.'],400);
         }
+
         // https://api.mercadolibre.com/categories/MLA1071
         $client = new Client(['base_uri' => 'https://api.mercadolibre.com/categories/']);
         $response = $client->request(
@@ -61,6 +62,7 @@ class CategoriasController extends Controller
         $jsonHTML = json_decode($body->getContents(),true);
 
         $categoriaFinal = $jsonHTML['children_categories'][$request->categoria_filho]['name'];
+
         if(is_null($categoriaFinal)){
           return response()->json(['Categoria indisponivel'],400);
 
